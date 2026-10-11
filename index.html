@@ -300,7 +300,16 @@
             }
             @media (max-width: 960px) {
                 .hero-grid {
-                    grid-template-columns: 1fr;
+                    /* minmax(0, 1fr), not a bare 1fr — a bare 1fr track won't shrink below
+                       its content's min-content width, and the Install Kenning box's
+                       .cmd-line (white-space: nowrap, its own overflow-x: auto) has a wide
+                       min-content size from the longest install command. Without the 0
+                       floor, that line's own intrinsic width stretches this ENTIRE grid
+                       column past the viewport on narrow phones (live-caught: content from
+                       the lede paragraph down through the workspace mock all got clipped
+                       at the window edge), instead of .cmd-line just scrolling internally
+                       the way its own overflow-x: auto already intends. */
+                    grid-template-columns: minmax(0, 1fr);
                     gap: 44px;
                 }
                 /* the badge no longer reliably fits on h1's last line below
@@ -644,6 +653,12 @@
                 height: 15px;
                 color: var(--blue-2);
             }
+            .blist-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px 32px;
+                margin-top: 28px;
+            }
             .gmock {
                 position: relative;
             }
@@ -754,6 +769,9 @@
                 }
                 .compare::after {
                     display: none;
+                }
+                .blist-grid {
+                    grid-template-columns: 1fr;
                 }
             }
 
@@ -2042,7 +2060,7 @@
                             </p>
                         </div>
                     </div>
-                    <ul class="blist" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 32px; margin-top: 28px">
+                    <ul class="blist blist-grid">
                         <li>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <path d="M20 6 9 17l-5-5" /></svg
