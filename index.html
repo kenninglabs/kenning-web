@@ -1555,7 +1555,7 @@
                                     <span class="muted">$</span>brew install kenning
                                 </div>
                                 <div class="cmd-line">
-                                    <span class="muted">$</span>brew install --cask --no-quarantine kenning-ide
+                                    <span class="muted">$</span>brew install --cask kenning-ide
                                 </div>
                                 <p
                                     style="
@@ -1566,8 +1566,9 @@
                                         line-height: 1.6;
                                     "
                                 >
-                                    The app isn't notarized yet, so macOS needs <code>--no-quarantine</code> to skip
-                                    the Gatekeeper prompt.
+                                    The app isn't notarized yet, so macOS blocks first launch. Clear it with
+                                    <code>xattr -dr com.apple.quarantine /Applications/Kenning.app</code>, or allow it
+                                    via System Settings → Privacy &amp; Security → "Open Anyway".
                                 </p>
                             </div>
                         </div>
