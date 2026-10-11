@@ -12,7 +12,7 @@
         <meta property="og:title" content="Kenning — Private code intelligence" />
         <meta
             property="og:description"
-            content="Instant, always-accurate answers about your codebase — 100% on your own machine. Local AI included."
+            content="Instant, always-accurate answers about your codebase — 100% on your own machine. Local AI included on Cloud."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://kenning.in" />
@@ -141,6 +141,72 @@
                 margin-left: 6px;
                 vertical-align: middle;
             }
+            .nav-auth {
+                position: relative;
+            }
+            .nav-signin-btn,
+            .nav-profile-btn {
+                background: none;
+                border: none;
+                color: var(--dim);
+                font: inherit;
+                font-size: 14px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 0;
+            }
+            .nav-signin-btn:hover,
+            .nav-profile-btn:hover {
+                color: var(--fg);
+            }
+            .nav-avatar {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: var(--blue);
+                color: #06101f;
+                font-size: 11px;
+                font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-transform: uppercase;
+            }
+            .nav-dropdown {
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                background: var(--panel);
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                min-width: 190px;
+                padding: 6px;
+                z-index: 1001;
+                box-shadow: 0 10px 30px -6px rgba(0, 0, 0, 0.5);
+            }
+            .nav-dropdown[hidden] {
+                display: none;
+            }
+            .nav-dropdown button,
+            .nav-dropdown a {
+                display: block;
+                width: 100%;
+                text-align: left;
+                background: none;
+                border: none;
+                color: var(--fg);
+                font: inherit;
+                font-size: 13.5px;
+                padding: 8px 10px;
+                border-radius: 7px;
+                cursor: pointer;
+            }
+            .nav-dropdown button:hover,
+            .nav-dropdown a:hover {
+                background: var(--bg);
+            }
             .btn {
                 display: inline-flex;
                 align-items: center;
@@ -183,31 +249,74 @@
             .nav .btn {
                 padding: 9px 16px;
             }
+            .nav-mobile-toggle {
+                display: none;
+                background: none;
+                border: 1px solid var(--line-2);
+                border-radius: 8px;
+                color: var(--fg);
+                width: 36px;
+                height: 36px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
             @media (max-width: 760px) {
+                .nav-mobile-toggle {
+                    display: flex;
+                }
                 .nav-links .hide-sm {
                     display: none;
+                }
+                .nav-links.mobile-open {
+                    position: absolute;
+                    top: 66px;
+                    left: 0;
+                    right: 0;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 2px;
+                    background: var(--panel);
+                    border-bottom: 1px solid var(--line);
+                    padding: 10px 26px 18px;
+                    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+                }
+                .nav-links.mobile-open .hide-sm {
+                    display: block;
+                    width: 100%;
+                    padding: 10px 0;
                 }
             }
 
             .hero {
                 position: relative;
-                padding: 80px 0 60px;
+                padding: 80px 0 28px;
             }
             .hero-grid {
                 display: grid;
                 grid-template-columns: 1.05fr 1fr;
                 gap: 52px;
-                align-items: center;
+                align-items: start;
             }
             @media (max-width: 960px) {
                 .hero-grid {
                     grid-template-columns: 1fr;
                     gap: 44px;
                 }
+                /* the badge no longer reliably fits on h1's last line below
+                   this width - inline-wrapping a tall padded pill into text
+                   flow leaves an oversized gap, so drop it to its own line
+                   with a normal margin instead. */
+                .hero h1 .badge {
+                    display: flex;
+                    width: fit-content;
+                    margin: 14px 0 0;
+                }
             }
             .badge {
                 display: inline-flex;
                 align-items: center;
+                vertical-align: middle;
                 gap: 8px;
                 font-size: 12.5px;
                 font-weight: 600;
@@ -216,7 +325,7 @@
                 border: 1px solid rgba(76, 141, 255, 0.4);
                 border-radius: 999px;
                 padding: 6px 14px 6px 11px;
-                margin-bottom: 26px;
+                margin-left: 4px;
                 box-shadow: 0 0 22px rgba(76, 141, 255, 0.18);
             }
             .badge .bolt {
@@ -224,7 +333,7 @@
                 height: 13px;
             }
             h1 {
-                font-size: clamp(29px, 4.6vw, 52px);
+                font-size: clamp(24px, 3.8vw, 42px);
                 line-height: 1.08;
                 letter-spacing: -0.03em;
                 font-weight: 640;
@@ -240,10 +349,10 @@
                 -webkit-text-fill-color: transparent;
             }
             .lede {
-                font-size: clamp(16px, 2vw, 18.5px);
+                font-size: clamp(14px, 1.7vw, 16px);
                 color: var(--dim);
                 max-width: 54ch;
-                margin: 0 0 32px;
+                margin: 0 0 26px;
             }
             .cta-row {
                 display: flex;
@@ -470,6 +579,9 @@
                 padding: 78px 0;
                 position: relative;
             }
+            .product-band {
+                padding: 48px 0;
+            }
             .marker {
                 display: inline-flex;
                 align-items: center;
@@ -598,6 +710,51 @@
                 margin: 0;
                 font-size: 13.5px;
                 color: var(--dim);
+            }
+            .compare {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 28px;
+                position: relative;
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                background: var(--panel);
+                overflow: hidden;
+            }
+            .compare .otile {
+                border: none;
+                border-radius: 0;
+                background: none;
+            }
+            .compare .otile:first-child {
+                border-right: 1px solid var(--line);
+            }
+            .compare::after {
+                content: "VS";
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--bg2);
+                border: 1px solid var(--line-2);
+                color: var(--faint);
+                font-family: var(--mono);
+                font-size: 10px;
+                letter-spacing: 0.08em;
+                padding: 5px 10px;
+                border-radius: 999px;
+            }
+            @media (max-width: 760px) {
+                .compare {
+                    grid-template-columns: 1fr;
+                }
+                .compare .otile:first-child {
+                    border-right: none;
+                    border-bottom: 1px solid var(--line);
+                }
+                .compare::after {
+                    display: none;
+                }
             }
 
             .caps {
@@ -756,7 +913,7 @@
             }
             .plans {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
                 gap: 18px;
                 align-items: stretch;
             }
@@ -857,6 +1014,112 @@
                 width: 100%;
                 justify-content: center;
             }
+            .install-cmd {
+                font-family: var(--mono);
+                font-size: 13px;
+                background: var(--panel2);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 10px 14px;
+                color: var(--fg-soft);
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .install-cmd .muted {
+                color: var(--faint);
+            }
+            .cmd-line {
+                font-family: var(--mono);
+                font-size: 13px;
+                color: var(--fg-soft);
+                line-height: 2.1;
+                white-space: nowrap;
+                overflow-x: auto;
+            }
+            .cmd-line .muted {
+                color: var(--faint);
+                margin-right: 6px;
+            }
+            .doc-cat {
+                margin: 36px 0 14px;
+                font-family: var(--mono);
+                font-size: 12px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--blue-2);
+            }
+            .doc-cat:first-of-type {
+                margin-top: 0;
+            }
+            .doc-table-wrap {
+                overflow-x: auto;
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                background: var(--panel);
+            }
+            .doc-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13.5px;
+            }
+            .doc-table th,
+            .doc-table td {
+                text-align: left;
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+            }
+            .doc-table tr:last-child td {
+                border-bottom: none;
+            }
+            .doc-table th {
+                color: var(--faint);
+                font-family: var(--mono);
+                font-size: 10.5px;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                font-weight: 600;
+            }
+            .doc-table td:first-child {
+                font-family: var(--mono);
+                font-size: 12.5px;
+                color: var(--fg);
+                white-space: nowrap;
+            }
+            .doc-table td:last-child {
+                color: var(--dim);
+            }
+            #plans,
+            #docs,
+            #access,
+            #account {
+                display: none;
+                /* header.nav is position:sticky at 66px tall - without this,
+                   scrollIntoView lands the section exactly under it, clipping
+                   the heading behind the sticky bar. */
+                scroll-margin-top: 90px;
+            }
+            #top {
+                /* same reason as above - Product/Install link here via
+                   scrollIntoView, and without this the hero's badge/heading
+                   render flush under the sticky nav instead of with its own
+                   top padding visible. */
+                scroll-margin-top: 90px;
+            }
+            body.page-mode .site-sections {
+                display: none;
+            }
+            body.page-mode #plans:not(.page-hidden),
+            body.page-mode #docs:not(.page-hidden),
+            body.page-mode #access:not(.page-hidden),
+            body.page-mode #account:not(.page-hidden) {
+                display: block;
+                /* section's default 78px top padding assumes it's stacked
+                   between other sections on the long page - as a full-page
+                   view directly under the sticky nav, that reads as dead
+                   space before the heading even starts. */
+                padding-top: 36px;
+            }
             .plans-note {
                 text-align: center;
                 margin-top: 24px;
@@ -893,6 +1156,38 @@
             }
             form.acc .full {
                 grid-column: 1/-1;
+            }
+            #access-fields,
+            #access-review {
+                display: contents;
+            }
+            #access-fields[hidden],
+            #access-review[hidden] {
+                display: none;
+            }
+            .review-box {
+                grid-column: 1/-1;
+                padding: 4px 20px;
+            }
+            .review-row {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--line);
+                font-size: 14px;
+            }
+            .review-row:last-child {
+                border-bottom: none;
+            }
+            .review-row span {
+                color: var(--dim);
+                flex: none;
+            }
+            .review-row b {
+                color: var(--fg);
+                font-weight: 600;
+                text-align: right;
             }
             form.acc label {
                 display: block;
@@ -945,46 +1240,224 @@
                 color: var(--blue-2);
             }
 
-            footer {
-                border-top: 1px solid var(--line);
-                padding: 46px 0 30px;
+            /* account page: subscription list + detail pane */
+            .modal-status {
+                margin-top: 14px;
+                font-size: 13px;
+                color: var(--dim);
+                min-height: 18px;
             }
-            .foot-inner {
+            .modal-sub-row {
+                text-align: left;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 10px;
+                font-size: 13px;
+            }
+            .modal-sub-row .sub-head {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                gap: 20px;
-                flex-wrap: wrap;
+                color: var(--fg);
+                font-weight: 600;
+                margin-bottom: 6px;
             }
-            .foot-brand {
+            .modal-member-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: var(--dim);
+                padding: 10px 0;
+                border-bottom: 1px solid var(--line);
+            }
+            .modal-member-row:last-child {
+                border-bottom: none;
+            }
+            .modal-member-row .modal-link-btn {
+                font-size: 12.5px;
+            }
+            .modal-member-count {
+                font-size: 12px;
+                color: var(--dim);
+                margin: 4px 0 2px;
+            }
+            .modal-add-row {
+                display: flex;
+                gap: 6px;
+                margin-top: 8px;
+            }
+            .modal-add-row input {
+                flex: 1;
+                background: var(--bg);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                color: var(--fg);
+                padding: 6px 8px;
+                font: inherit;
+            }
+            .modal-add-row button {
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+            .modal-link-btn {
+                background: none;
+                border: none;
+                color: var(--blue);
+                cursor: pointer;
+                font: inherit;
+                padding: 0;
+            }
+            .account-layout {
+                display: flex;
+                align-items: stretch;
+                margin-top: 28px;
+                flex-wrap: wrap;
+                border: 1px solid var(--line);
+                border-radius: 14px;
+                background: var(--panel);
+                overflow: hidden;
+            }
+            .account-list {
+                flex: 0 0 300px;
+                border-right: 1px solid var(--line);
+            }
+            .account-list-item {
                 display: flex;
                 align-items: center;
                 gap: 12px;
+                width: 100%;
+                padding: 13px 16px;
+                border: none;
+                border-bottom: 1px solid var(--line);
+                background: none;
+                cursor: pointer;
+                text-align: left;
+                font: inherit;
+                position: relative;
+                transition: background 0.15s;
             }
-            .foot-brand img {
-                width: 34px;
-                height: 34px;
+            .account-list-item:last-child {
+                border-bottom: none;
+            }
+            .account-list-item:hover {
+                background: var(--bg);
+            }
+            .account-list-item.selected {
+                background: var(--blue-lo);
+            }
+            .account-list-item.selected::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: var(--blue);
+            }
+            .account-list-icon {
+                width: 32px;
+                height: 32px;
                 border-radius: 9px;
+                background: var(--blue);
+                color: #06101f;
+                font-weight: 700;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
             }
-            .foot-brand .t {
-                font-weight: 640;
+            .account-list-icon.cancelled {
+                background: var(--faint);
+            }
+            .account-list-text {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                min-width: 0;
+            }
+            .account-list-title {
+                color: var(--fg);
+                font-weight: 600;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .account-list-sub {
+                color: var(--dim);
+                font-size: 12.5px;
+            }
+            .account-detail {
+                flex: 1;
+                min-width: 300px;
+                padding: 20px;
+            }
+            .account-detail-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 14px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid var(--line);
+            }
+            .account-detail-head h4 {
+                margin: 0;
+                font-size: 17px;
                 color: var(--fg);
             }
-            .foot-brand .s {
-                font-size: 13px;
-                color: var(--faint);
-            }
-            .foot-links {
-                display: flex;
-                gap: 22px;
-                font-size: 14px;
+            .account-detail-head span {
+                font-size: 12.5px;
                 color: var(--dim);
             }
-            .foot-links a:hover {
-                color: var(--blue-2);
+            .account-detail-footer {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 18px;
+            }
+            .account-empty {
+                color: var(--dim);
+                font-size: 13.5px;
+                padding: 24px;
+                border: 1px dashed var(--line);
+                border-radius: 12px;
+                text-align: center;
+                flex: 1;
+            }
+            .account-loading {
+                flex: 1;
+                height: 3px;
+                margin: 24px;
+                background: var(--line);
+                border-radius: 3px;
+                overflow: hidden;
+                position: relative;
+            }
+            .account-loading::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -40%;
+                height: 100%;
+                width: 40%;
+                background: var(--blue);
+                border-radius: 3px;
+                animation: account-loading-slide 1.1s ease-in-out infinite;
+            }
+            @keyframes account-loading-slide {
+                0% {
+                    left: -40%;
+                }
+                100% {
+                    left: 100%;
+                }
+            }
+
+            footer {
+                padding: 30px 0;
             }
             .codestrip {
-                margin-top: 30px;
                 font-family: var(--mono);
                 font-size: 11px;
                 line-height: 1.7;
@@ -1002,40 +1475,83 @@
             <div class="wrap nav-inner">
                 <a class="brand" href="#top"><img src="icon.svg" alt="Kenning" /><span>Kenning</span></a>
                 <nav class="nav-links">
-                    <a class="hide-sm" href="#features">Features</a>
-                    <a class="hide-sm" href="#workspace">Product</a>
-                    <a class="hide-sm" href="#agents">For AI agents</a>
-                    <a class="soon hide-sm" title="Coming soon">Sign in</a>
-                    <a class="btn btn-primary" href="#access">Request access</a>
+                    <a class="hide-sm" href="#top">Product</a>
+                    <a class="hide-sm" href="#plans">Plans</a>
+                    <a class="hide-sm" href="#docs">Docs</a>
+                    <a class="hide-sm" href="https://github.com/kenninglabs" target="_blank" rel="noopener">GitHub ↗</a>
+                    <div class="nav-auth hide-sm" id="nav-auth">
+                        <button class="nav-signin-btn" type="button" id="nav-signin-btn">Sign in</button>
+                        <div class="nav-dropdown" id="nav-signin-menu" hidden>
+                            <button type="button" id="nav-google-btn">Sign in with Google</button>
+                            <button type="button" id="nav-github-btn">Sign in with GitHub</button>
+                        </div>
+                        <button class="nav-profile-btn" type="button" id="nav-profile-btn" style="display: none">
+                            <span class="nav-avatar" id="nav-avatar"></span>
+                            <span id="nav-name"></span>
+                        </button>
+                        <div class="nav-dropdown" id="nav-profile-menu" hidden>
+                            <button type="button" id="nav-menu-account">My account</button>
+                            <button type="button" id="nav-signout-btn">Sign out</button>
+                        </div>
+                    </div>
                 </nav>
+                <button class="nav-mobile-toggle" type="button" id="nav-mobile-toggle" aria-label="Menu" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </header>
 
         <main id="top">
+            <div class="site-sections">
             <!-- HERO -->
             <section class="hero">
                 <div class="wrap hero-grid">
                     <div>
-                        <div class="badge">
-                            <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
-                            </svg>
-                            Local-first · now in early access
-                        </div>
-                        <h1>Instant answers about your code — <em>that never leave your machine</em>.</h1>
+                        <h1>
+                            Code intelligence <em>that never leaves your machine</em>
+                            <span class="badge">
+                                <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
+                                </svg>
+                                Local-first · private by design
+                            </span>
+                        </h1>
                         <p class="lede">
-                            Kenning turns all your repositories into fast, always-accurate, searchable knowledge — for
-                            you, your team, and your AI. Everything runs locally. Nothing is ever uploaded.
+                            Kenning indexes every repository you give it into a fast, always-current knowledge graph —
+                            searchable by you, your team, and your AI. No cloud round-trip, no API key, nothing
+                            uploaded, ever.
                         </p>
-                        <div class="cta-row">
-                            <a class="btn btn-primary" href="#access">Request early access</a>
-                            <a
-                                class="btn btn-ghost"
-                                href="https://github.com/kenninglabs"
-                                target="_blank"
-                                rel="noopener"
-                                >View on GitHub</a
-                            >
+                        <div class="mock" id="install" style="margin-bottom: 24px">
+                            <div class="mock-hd">
+                                <img class="k" src="icon.svg" alt="" />
+                                <b>Install Kenning</b>
+                                <span class="chip on">Homebrew</span>
+                            </div>
+                            <div class="mock-bd">
+                                <div class="cmd-line">
+                                    <span class="muted">$</span>brew tap kenninglabs/kenning
+                                </div>
+                                <div class="cmd-line">
+                                    <span class="muted">$</span>brew install kenning
+                                </div>
+                                <div class="cmd-line">
+                                    <span class="muted">$</span>brew install --cask --no-quarantine kenning-ide
+                                </div>
+                                <p
+                                    style="
+                                        margin: 14px 0 0;
+                                        font-family: var(--mono);
+                                        font-size: 11px;
+                                        color: var(--faint);
+                                        line-height: 1.6;
+                                    "
+                                >
+                                    The app isn't notarized yet, so macOS needs <code>--no-quarantine</code> to skip
+                                    the Gatekeeper prompt.
+                                </p>
+                            </div>
                         </div>
                         <div class="micro"><span>No cloud</span><span>Runs offline</span><span>No telemetry</span></div>
                     </div>
@@ -1109,6 +1625,8 @@
                 </div>
             </section>
 
+            <div class="divider"></div>
+
             <!-- FEATURE STRIP: what you get -->
             <div class="strip" id="features">
                 <div class="wrap">
@@ -1116,47 +1634,48 @@
                         <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
                         </svg>
-                        <h3>Everything stays private.</h3>
-                        <p>Runs entirely on your own machine. Your code is never uploaded, shared, or sent anywhere.</p>
+                        <h3>Nothing ever leaves.</h3>
+                        <p>Your source code, your questions, your answers — all of it stays on the machine it ran on.</p>
                     </div>
                     <div class="fcol">
                         <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
                         </svg>
-                        <h3>Answers in an instant.</h3>
+                        <h3>No waiting around.</h3>
                         <p>
-                            Ask about any part of your codebase and get a precise answer in milliseconds — not minutes.
+                            The index is already warm in memory, so a question about any part of your codebase comes
+                            back in milliseconds.
                         </p>
                     </div>
                     <div class="fcol">
                         <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
                         </svg>
-                        <h3>Always accurate.</h3>
+                        <h3>Grounded in your code.</h3>
                         <p>
-                            Every answer is backed by your real code and re-checked as you work — so you can trust what
-                            you read.
+                            Every answer traces back to a real line in a real file, re-checked as you keep editing —
+                            not a guess.
                         </p>
                     </div>
                     <div class="fcol">
                         <svg class="bolt" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
                         </svg>
-                        <h3>Fits your workflow.</h3>
-                        <p>Use it from your terminal, your browser, a native app, or right inside your AI assistant.</p>
+                        <h3>However you work.</h3>
+                        <p>Terminal, browser, native app, or wired straight into your AI assistant — same index, your pick.</p>
                     </div>
                 </div>
             </div>
 
             <!-- BAND 01: explore -->
-            <section>
+            <section id="workspace" class="product-band">
                 <div class="wrap band">
                     <div>
                         <div class="marker"><span class="n">01</span> Explore</div>
                         <h2>See how everything connects.</h2>
                         <p>
-                            Search anything across every repository, jump straight to what matters, and watch a live map
-                            of your whole project come together — always current as you build.
+                            One search box covers every repository you've added. Jump straight to the symbol, file, or
+                            answer you need, and watch the graph of your whole project redraw itself as you build.
                         </p>
                         <ul class="blist">
                             <li>
@@ -1176,7 +1695,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="gmock">
+                                        <div class="gmock">
                         <div class="gpane">
                             <svg viewBox="0 0 420 240" width="100%" aria-hidden="true">
                                 <g stroke="rgba(76,141,255,0.35)" stroke-width="1.4">
@@ -1203,14 +1722,14 @@
             </section>
 
             <!-- BAND 02: what we optimised -->
-            <section>
+            <section class="product-band">
                 <div class="wrap">
                     <div class="sec-head">
                         <div class="marker"><span class="n">02</span> Built for speed</div>
                         <h2>Optimised to feel instant.</h2>
                         <p class="sec-lead">
-                            We obsess over speed and footprint so the tool disappears and you stay in flow — no waiting,
-                            no heavy setup.
+                            A tool you have to wait for is a tool you stop reaching for. Kenning is built to disappear —
+                            light enough to run constantly, fast enough that you never notice it's there.
                         </p>
                     </div>
                     <div class="otiles">
@@ -1230,20 +1749,39 @@
                             <p>A single fast application — nothing to provision, nothing running in the cloud.</p>
                         </div>
                     </div>
+                    <div class="compare">
+                        <div class="otile">
+                            <div class="big" style="background: none; -webkit-text-fill-color: var(--faint)">
+                                Grep + open files
+                            </div>
+                            <h4>Without Kenning</h4>
+                            <p>
+                                An agent re-reads whole files to find what it needs — cost scales with every file it
+                                opens, every single time, even for the same question asked twice.
+                            </p>
+                        </div>
+                        <div class="otile">
+                            <div class="big">One graph lookup</div>
+                            <h4>With Kenning</h4>
+                            <p>
+                                Retrieval returns just the answer-sized slice off the precomputed graph.
+                                <code>kenning status</code> tracks real tokens saved against that same baseline, live
+                                per session — sessions have measured up to 76% fewer tokens per query.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <div class="divider"></div>
-
             <!-- BAND 03: one workspace -->
-            <section id="workspace">
+            <section class="product-band">
                 <div class="wrap">
                     <div class="sec-head">
                         <div class="marker"><span class="n">03</span> One workspace</div>
                         <h2>Everything you need, in one place.</h2>
                         <p class="sec-lead">
-                            Search, understand, document, and monitor your whole codebase — without juggling a dozen
-                            tools.
+                            Search, memory, docs, and health monitoring are usually four different tools with four
+                            different logins. Here they're four panels of the same local index.
                         </p>
                     </div>
                     <div class="caps">
@@ -1294,18 +1832,87 @@
                             </p>
                         </div>
                     </div>
+                    <div class="band" style="margin-top: 48px">
+                        <div>
+                            <h3>Also available as a web UI.</h3>
+                            <p>
+                                Prefer a browser tab to a dock? The same running index answers at
+                                <code>127.0.0.1:8082</code> — plain server-rendered HTML, bound to localhost only,
+                                no sign-in, no framework to load.
+                            </p>
+                            <div class="doc-table-wrap">
+                                <table class="doc-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Route</th>
+                                            <th>What it's for</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>/system</td>
+                                            <td>Daemon health — per-repo node/edge counts, live index progress, reset buttons.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>/search</td>
+                                            <td>The same symbol/literal search as `kenning search`, as a form.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>/memory</td>
+                                            <td>Browse stored memories, filterable by text and tag.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>/wiki</td>
+                                            <td>The auto-generated, evidence-gated wiki for each repository.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>/graph</td>
+                                            <td>Interactive WebGL graph — hover a symbol's neighborhood, click for details.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                                                <div class="gmock">
+                            <div class="editor">
+                                <div class="ehd">
+                                    <span class="dot" style="background: #ff5f57"></span>
+                                    <span class="dot" style="background: #febc2e"></span>
+                                    <span class="dot" style="background: #28c840"></span>
+                                    <span class="ename">127.0.0.1:8082</span>
+                                </div>
+                                <div class="ebody">
+                                    <div class="etree">
+                                        <div class="f on">System</div>
+                                        <div class="f">Search</div>
+                                        <div class="f">Memory</div>
+                                        <div class="f">Wiki</div>
+                                        <div class="f">Graph</div>
+                                    </div>
+                                    <div class="ecode">
+                                        <span class="ln"><span class="cm">// per-repo index health</span></span>
+                                        <span class="ln">frontend&nbsp;&nbsp;<span class="fn">████████</span>░░ 92%</span>
+                                        <span class="ln">backend&nbsp;&nbsp;&nbsp;<span class="fn">██████████</span> 100%</span>
+                                        <span class="ln">shared&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">███████</span>░░░ 78%</span>
+                                        <span class="ln"></span>
+                                        <span class="ln"><span class="kw">daemon</span> <span class="st">idle</span> · 24 MB RSS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- BAND 04: native IDE -->
-            <section>
+            <section class="product-band">
                 <div class="wrap band">
                     <div>
                         <div class="marker"><span class="n">04</span> Native app</div>
                         <h2>A full editor, built in.</h2>
                         <p>
-                            Read, search, and edit your code in a fast native app — with an integrated terminal, command
-                            palette, and file tree. One window, everything on your machine.
+                            The graph isn't bolted onto a browser tab — it lives inside a real native editor, with a
+                            terminal, a command palette, and a file tree that all already know what the index knows.
                         </p>
                         <ul class="blist">
                             <li>
@@ -1325,7 +1932,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="gmock">
+                                        <div class="gmock">
                         <div class="editor">
                             <div class="ehd">
                                 <span class="dot" style="background: #ff5f57"></span>
@@ -1343,19 +1950,10 @@
                                 </div>
                                 <div class="ecode">
                                     <span class="ln"><span class="cm">// answers, backed by your code</span></span>
-                                    <span class="ln"
-                                        ><span class="kw">fn</span> <span class="fn">answer</span>(q:
-                                        <span class="kw">&amp;str</span>) -&gt; Reply {</span
-                                    >
-                                    <span class="ln">
-                                        <span class="kw">let</span> hits = index.<span class="fn">search</span
-                                        >(q);</span
-                                    >
-                                    <span class="ln">
-                                        <span class="kw">let</span> r = <span class="fn">verify</span>(hits,
-                                        <span class="st">"local"</span>);</span
-                                    >
-                                    <span class="ln"> r.<span class="fn">reply</span>()</span>
+                                    <span class="ln"><span class="kw">fn</span> <span class="fn">answer</span>(q: <span class="kw">&amp;str</span>) -&gt; Reply {</span>
+                                    <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">let</span> hits = index.<span class="fn">search</span>(q);</span>
+                                    <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">let</span> r = <span class="fn">verify</span>(hits, <span class="st">"local"</span>);</span>
+                                    <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;r.<span class="fn">reply</span>()</span>
                                     <span class="ln">}</span>
                                 </div>
                             </div>
@@ -1367,15 +1965,15 @@
             <div class="divider"></div>
 
             <!-- FOR AI AGENTS -->
-            <section id="agents">
+            <section>
                 <div class="wrap">
                     <div class="sec-head">
                         <div class="kicker">For AI agents <span class="pill">MCP-native</span></div>
                         <h2>Your AI assistant, without the re-reading.</h2>
                         <p class="sec-lead">
-                            Every fresh AI session normally starts from zero — re-opening files it already understood
-                            last time. Kenning gives your assistant a standing index to query instead, so its tokens go
-                            to your problem, not to rediscovering your codebase.
+                            A fresh agent session starts from zero every time, re-opening files it already figured out
+                            last week. Point it at Kenning's standing index instead — its tokens go toward your
+                            problem, not toward rediscovering your codebase from scratch.
                         </p>
                     </div>
                     <div class="caps">
@@ -1422,83 +2020,373 @@
                             <p>Past decisions and context, remembered across sessions — explained exactly once.</p>
                         </div>
                     </div>
-                    <div class="otiles" style="margin-top: 28px">
+                    <div class="compare" style="margin-top: 28px">
                         <div class="otile">
-                            <div class="big">3 ways in</div>
-                            <h4>MCP · HTTP/SSE · CLI</h4>
+                            <div class="big" style="background: none; -webkit-text-fill-color: var(--faint)">
+                                Cold, per-call
+                            </div>
+                            <h4>Generic filesystem MCP</h4>
                             <p>
-                                Plug it into your AI assistant over MCP, script it over HTTP, or use it straight from
-                                the terminal.
+                                A raw read-file/grep-over-MCP tool still opens whole files fresh on every call — same
+                                token cost as an agent doing it manually, just wrapped in a protocol.
                             </p>
                         </div>
                         <div class="otile">
-                            <div class="big">17+</div>
-                            <h4>Languages understood</h4>
+                            <div class="big">Warm, in-memory</div>
+                            <h4>Kenning's MCP</h4>
                             <p>
-                                Rust, Go, Python, TypeScript, Java, C/C++, C#, Ruby, Kotlin, Swift, PHP and more —
-                                parsed into one graph.
-                            </p>
-                        </div>
-                        <div class="otile">
-                            <div class="big">~21s</div>
-                            <h4>To index a 30-repo workspace</h4>
-                            <p>
-                                11,400 files, cold. Re-checking the whole workspace when nothing changed takes under two
-                                seconds.
+                                The daemon holds the graph in memory across calls, so <code>ask</code>/<code
+                                    >explore</code
+                                >/<code>recall</code> answer from a live index — no cold start, no re-reading, the
+                                same warm graph the CLI and desktop app use.
                             </p>
                         </div>
                     </div>
+                    <ul class="blist" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 32px; margin-top: 28px">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M20 6 9 17l-5-5" /></svg
+                            ><strong>Agent governance</strong> — <code>instructions_*</code>/<code>tools_*</code>/<code>skills_*</code>
+                            sync one shared catalog to every agent, instead of per-developer config.
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M20 6 9 17l-5-5" /></svg
+                            ><strong>No black-box answers</strong> — <code>trace_submit</code> rejects any claim that
+                            doesn't independently grep-verify against the real file.
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            </div>
+
+            <!-- PRICING -->
+            <section id="plans">
+                <div class="wrap">
+                    <div class="sec-head">
+                        <div class="kicker">Plans</div>
+                        <h2>Simple plans. Everything runs local.</h2>
+                        <p class="sec-lead">
+                            Every plan runs built-in local AI on your own machine — no cloud, no API keys, nothing
+                            ever uploaded. Free works out of the box for individuals. Cloud adds team features —
+                            shared knowledge, SSO, unlimited scale — deployed in your own infrastructure.
+                        </p>
+                    </div>
+                    <div class="plans">
+                        <div class="plan">
+                            <div class="plan-name">Free</div>
+                            <div class="plan-price">₹0 <span>/ forever</span></div>
+                            <p class="plan-tag">For individuals getting started.</p>
+                            <ul class="plan-feats">
+                                <li>Index &amp; search all your repositories</li>
+                                <li>Explore your codebase visually</li>
+                                <li>Always-accurate answers &amp; knowledge</li>
+                                <li>Built-in local AI — runs on your machine</li>
+                                <li>Up to 50 repos, 1 hub</li>
+                            </ul>
+                            <a class="btn btn-primary full" href="#top">See install instructions</a>
+                        </div>
+                        <div class="plan featured">
+                            <div class="plan-name">Cloud</div>
+                            <div class="plan-price">Custom <span>pricing</span></div>
+                            <p class="plan-tag">For teams and organisations at scale.</p>
+                            <ul class="plan-feats">
+                                <li>Everything in Free</li>
+                                <li>Shared knowledge across your team</li>
+                                <li>Single sign-on &amp; access controls</li>
+                                <li>Unlimited repos &amp; hubs</li>
+                                <li>Deploy in your own infra</li>
+                            </ul>
+                            <a class="btn btn-primary full" href="#access">Contact us</a>
+                        </div>
+                    </div>
+                    <p class="plans-note">
+                        All plans run entirely on your own machine — local AI included, nothing ever uploaded.
+                    </p>
                 </div>
             </section>
 
-            <div class="divider"></div>
+            <!-- DOCS / COMMAND REFERENCE -->
+            <section id="docs">
+                <div class="wrap">
+                    <div class="sec-head">
+                        <div class="kicker">Docs</div>
+                        <h2>Every command, one binary.</h2>
+                        <p class="sec-lead">
+                            Every command accepts <code>--hub &lt;path&gt;</code> to target a hub other than the one
+                            auto-resolved from your current directory; most also accept <code>--json</code> for
+                            machine-readable output.
+                        </p>
+                    </div>
+
+                    <div class="doc-cat">Setup &amp; account</div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning login [provider]</td>
+                                    <td>Optional sign-in (GitHub or Google) — unlocks Cloud tier and keeps your tokens-saved history across reinstalls. Free tier works without it.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning logout</td>
+                                    <td>Clears the signed-in identity everywhere — CLI and desktop app together.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning init [--force]</td>
+                                    <td>
+                                        Scaffolds a multi-repo hub: config, local state, and clones any repos
+                                        declared in it.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>kenning repo add &lt;path-or-git-url&gt; [--name]</td>
+                                    <td>Register another repo into a hub, cloning it first if you passed a URL.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning repo delete &lt;name&gt;</td>
+                                    <td>Remove a repo's checkout from disk and untrack it from the hub.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning up [--fresh-wiki]</td>
+                                    <td>Indexes every repo in the hub and starts the background daemon.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="doc-cat">Search &amp; retrieval</div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning search &lt;query&gt; [--repo] [--limit]</td>
+                                    <td>Find a symbol or string literal by name across the whole hub.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning explore &lt;symbol&gt; [--repo] [--max-files]</td>
+                                    <td>See a symbol's neighborhood: callers, callees, blast radius.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning ask &lt;query&gt; [--repo] [--limit]</td>
+                                    <td>One call that runs both recall (docs/memory) and search_code (code).</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning recall &lt;query&gt; [--repo] [--limit]</td>
+                                    <td>Full-text search over your docs, memories, and verified traces.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning status</td>
+                                    <td>Per-repo index health, plus a running tokens-saved count.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="doc-cat">Keeping the index current</div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning sync [--repo]</td>
+                                    <td>
+                                        Force an incremental re-index — the daemon already does this automatically
+                                        on save.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>kenning sync --repo &lt;name&gt; --reset</td>
+                                    <td>Wipe and rebuild one repo's graph from scratch.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="doc-cat">Knowledge: memory, traces &amp; wiki</div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning memory-store "&lt;content&gt;" --type --tags</td>
+                                    <td>Save a typed, tagged memory — a decision, a bug's root cause, a convention.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning memory ingest [--repo]</td>
+                                    <td>Bulk-load memory.md files into the searchable store (rows + FTS + embeddings).</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning memory check [--repo]</td>
+                                    <td>Report-only: memories with no backing file, or file sections not yet ingested.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning trace-submit &lt;trace.json&gt;</td>
+                                    <td>Submit a structured trace of how something was verified — fail-closed.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning wiki bootstrap &lt;repo&gt;</td>
+                                    <td>Generate the initial wiki page skeleton for a repo, from its index.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning wiki get &lt;repo&gt; [--slug]</td>
+                                    <td>Fetch a wiki page, generating a skeleton first if it doesn't exist yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="doc-cat">Advanced &amp; manual control</div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning index [--repo] [--jobs]</td>
+                                    <td>The raw indexing step alone, without registering the hub or a daemon.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning serve --port 8082</td>
+                                    <td>The same daemon `up` starts, run in the foreground for debugging.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning audit [--strict] [--quiet]</td>
+                                    <td>Hub hygiene lint — naming, dangling links, staleness. Built as a CI gate.</td>
+                                </tr>
+                                <tr>
+                                    <td>kenning migrate [--knowledge] [--yes]</td>
+                                    <td>One-time import from mcp-memory-service or existing knowledge/ docs.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="doc-cat">MCP — Claude Code or any MCP client</div>
+                    <div class="install-cmd" style="max-width: 560px; margin-bottom: 14px">
+                        <span class="muted">$</span> claude mcp add kenning -- kenning mcp
+                    </div>
+                    <div class="doc-table-wrap">
+                        <table class="doc-table">
+                            <thead>
+                                <tr>
+                                    <th>Transport</th>
+                                    <th>What it's for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>kenning mcp (stdio)</td>
+                                    <td>
+                                        One process per agent connection — 20 tools, including memory_store,
+                                        trace_submit, and wiki_get.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Daemon /mcp (HTTP)</td>
+                                    <td>
+                                        One always-on endpoint shared across multiple agent connections — 17
+                                        tools, warm index already in memory.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="plans-note">Full reference: <code>kenning --help</code> / <code>kenning &lt;command&gt; --help</code>.</p>
+                </div>
+            </section>
 
             <!-- ACCESS FORM -->
             <section id="access">
                 <div class="wrap access">
                     <div class="kicker" style="text-align: center">Get started</div>
-                    <h2>Request early access.</h2>
+                    <h2>Contact us.</h2>
                     <p class="sec-lead">
-                        Early access is rolling out now. Leave your details and we'll reach out with an
-                        invite.
+                        Free works out of the box — see install instructions above. Cloud is sales-led for now:
+                        leave your details and we'll reach out.
                     </p>
 
                     <!-- FormSubmit forwards each submission to the email below — no account needed.
              The FIRST real submission triggers a one-time confirmation email you must click to activate. -->
-                    <form class="acc" action="https://formsubmit.co/elitelokesh@gmail.com" method="POST">
-                        <input type="hidden" name="_subject" value="Kenning early-access request" />
+                    <form class="acc" id="access-form" action="https://formsubmit.co/elitelokesh@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Kenning Cloud request" />
                         <input type="hidden" name="_captcha" value="false" />
                         <input type="hidden" name="_template" value="table" />
-                        <div>
-                            <label for="name">Name</label>
-                            <input id="name" name="name" type="text" placeholder="Jane Doe" />
+                        <div id="access-fields">
+                            <div>
+                                <label for="name">Name</label>
+                                <input id="name" name="name" type="text" placeholder="Jane Doe" />
+                            </div>
+                            <div>
+                                <label for="email">Work email *</label>
+                                <input id="email" name="email" type="email" required placeholder="jane@company.com" />
+                            </div>
+                            <div>
+                                <label for="company">Company</label>
+                                <input id="company" name="company" type="text" placeholder="Company name" />
+                            </div>
+                            <div>
+                                <label for="seats">Licenses needed</label>
+                                <input id="seats" name="seats" type="number" min="1" placeholder="e.g. 10" />
+                            </div>
+                            <div class="full">
+                                <label for="plan">Interested in</label>
+                                <select id="plan" name="plan">
+                                    <option>Cloud</option>
+                                    <option>Just exploring</option>
+                                </select>
+                            </div>
+                            <div class="full">
+                                <label for="msg">Anything else? (optional)</label>
+                                <textarea
+                                    id="msg"
+                                    name="message"
+                                    placeholder="Team size, what you're hoping to solve…"
+                                ></textarea>
+                            </div>
+                            <div class="full">
+                                <button class="btn btn-primary full" type="button" id="access-review-btn">
+                                    Review request
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <label for="email">Work email *</label>
-                            <input id="email" name="email" type="email" required placeholder="jane@company.com" />
-                        </div>
-                        <div>
-                            <label for="company">Company</label>
-                            <input id="company" name="company" type="text" placeholder="Company name" />
-                        </div>
-                        <div>
-                            <label for="plan">Interested in</label>
-                            <select id="plan" name="plan">
-                                <option>For my team</option>
-                                <option>For myself</option>
-                                <option>Just exploring</option>
-                            </select>
-                        </div>
-                        <div class="full">
-                            <label for="msg">Anything else? (optional)</label>
-                            <textarea
-                                id="msg"
-                                name="message"
-                                placeholder="Team size, what you're hoping to solve…"
-                            ></textarea>
-                        </div>
-                        <div class="full">
-                            <button class="btn btn-primary full" type="submit">Request access</button>
+
+                        <div id="access-review" hidden>
+                            <div class="doc-table-wrap review-box">
+                                <div id="access-summary"></div>
+                            </div>
+                            <p class="acc-note full" style="text-align: left; margin-top: 16px">
+                                Nothing is sent until you confirm below.
+                            </p>
+                            <div class="cta-row full" style="margin-top: 10px">
+                                <button class="btn btn-ghost" type="button" id="access-edit-btn">Edit</button>
+                                <button class="btn btn-primary" type="submit">Send request</button>
+                            </div>
                         </div>
                     </form>
                     <br />
@@ -1509,32 +2397,456 @@
                     </p>
                 </div>
             </section>
-        </main>
 
+            <!-- ACCOUNT -->
+            <section id="account">
+                <div class="wrap">
+                    <div class="sec-head">
+                        <div class="kicker">Account</div>
+                        <h2>My account.</h2>
+                    </div>
+                    <div class="account-layout">
+                        <div class="account-list" id="account-list"></div>
+                        <div class="account-detail" id="account-detail"></div>
+                    </div>
+                    <div id="account-membership"></div>
+                    <p id="account-status" class="modal-status"></p>
+                </div>
+            </section>
+        </main>
         <!-- FOOTER -->
         <footer>
             <div class="wrap">
-                <div class="foot-inner">
-                    <div class="foot-brand">
-                        <img src="icon.svg" alt="Kenning" />
-                        <div>
-                            <div class="t">Kenning</div>
-                            <div class="s">by Kenning Labs</div>
-                        </div>
-                    </div>
-                    <div class="foot-links">
-                        <a href="#features">Features</a>
-                        <a href="#workspace">Product</a>
-                        <a href="#agents">For AI agents</a>
-                        <a href="#access">Request access</a>
-                        <a href="https://github.com/kenninglabs" target="_blank" rel="noopener">GitHub ↗</a>
-                    </div>
-                </div>
                 <div class="codestrip">
                     kenning — private code intelligence · runs on your machine · never uploaded · kenning.in · 0xA1F2
                     9C4B 77E0 3D18 · fn ready()-&gt;bool{ true }
                 </div>
             </div>
         </footer>
+
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+            import {
+                getAuth,
+                GoogleAuthProvider,
+                GithubAuthProvider,
+                signInWithPopup,
+                signOut,
+                onAuthStateChanged,
+            } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+            import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-functions.js";
+
+            // Public Web API key (not a secret - protected by Firebase security
+            // rules), same project/key the desktop app already ships.
+            const app = initializeApp({
+                apiKey: "AIzaSyBdCx6xSJsXmLtm-s9qUs8TV8UEIdNyvyA",
+                authDomain: "kenning-322cf.firebaseapp.com",
+                projectId: "kenning-322cf",
+            });
+            const auth = getAuth(app);
+            const functions = getFunctions(app, "asia-south1");
+            // Note: createSubscription is deliberately NOT bound here - Cloud is
+            // sold contact-us/sales-led for now (Razorpay self-serve checkout
+            // stays dormant), but an existing subscription (admin-granted or a
+            // past Razorpay purchase) is still fully self-manageable below.
+            const getMySubscriptions = httpsCallable(functions, "getMySubscriptions");
+            const getMyMembership = httpsCallable(functions, "getMyMembership");
+            const cancelSubscriptionFn = httpsCallable(functions, "cancelSubscription");
+            const addMemberFn = httpsCallable(functions, "addMember");
+            const removeMemberFn = httpsCallable(functions, "removeMember");
+            const leaveSubscriptionFn = httpsCallable(functions, "leaveSubscription");
+
+            function signInWithProvider(provider) {
+                return signInWithPopup(auth, provider);
+            }
+
+            const PLANS = {
+                team: { label: "Kenning Team" },
+                enterprise: { label: "Kenning Enterprise" },
+            };
+
+            function escapeHtml(s) {
+                const div = document.createElement("div");
+                div.textContent = s;
+                return div.innerHTML;
+            }
+
+            function subscriptionLabel(s) {
+                return PLANS[s.tier] ? PLANS[s.tier].label : s.tier;
+            }
+
+            function capitalize(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
+
+            // "Renews in Nd" for a live subscription (next auto-charge),
+            // "Expires in Nd" once cancelled (access lapsing, not renewing).
+            function subscriptionTimingText(s) {
+                if (!s.expiry) return "";
+                const days = Math.max(0, Math.ceil((new Date(s.expiry) - new Date()) / 86400000));
+                const verb = s.status === "cancelled" ? "Expires" : "Renews";
+                return verb + " in " + days + "d";
+            }
+
+            function subscriptionStatusText(s) {
+                const expiryDate = s.expiry ? new Date(s.expiry).toLocaleDateString() : null;
+                if (s.status === "cancelled" && expiryDate) {
+                    return "Cancelled - Access until " + expiryDate;
+                }
+                return capitalize(s.status);
+            }
+
+            // Left-column list - a real list (divider rows + accent bar for
+            // the selected one), not a stack of individually-boxed cards.
+            // Only what's needed to pick one: tier, seats, time-to-boundary.
+            function accountListItemHtml(s, selected) {
+                const cancelled = s.status === "cancelled";
+                const initial = subscriptionLabel(s).replace("Kenning ", "").charAt(0);
+                return "<button type=\"button\" class=\"account-list-item" + (selected ? " selected" : "") +
+                    "\" data-select-sub=\"" + s.subscription_id + "\">" +
+                    "<span class=\"account-list-icon" + (cancelled ? " cancelled" : "") + "\">" + initial + "</span>" +
+                    "<span class=\"account-list-text\">" +
+                    "<span class=\"account-list-title\">" + subscriptionLabel(s) + " - " + s.quantity + " seat(s)</span>" +
+                    "<span class=\"account-list-sub\">" + subscriptionTimingText(s) + "</span>" +
+                    "</span></button>";
+            }
+
+            // Right-pane detail for ONE selected subscription - member
+            // list + add/remove, with Cancel pinned bottom-right.
+            function accountDetailHtml(s) {
+                const cancelled = s.status === "cancelled";
+                const memberRows = s.members.map(function (m) {
+                    const label = escapeHtml(m.email) + (m.member_uid ? "" : " (pending)");
+                    return "<div class=\"modal-member-row\"><span>" + label + "</span>" +
+                        "<button type=\"button\" class=\"modal-link-btn\" data-remove-sub=\"" + s.subscription_id +
+                        "\" data-remove-email=\"" + escapeHtml(m.email) + "\">Remove</button></div>";
+                }).join("");
+                // Cancelled only stops FUTURE charges (see cancelSubscription
+                // server-side) - access AND seat management stay exactly as
+                // they were until the period actually ends, so Add still
+                // works on a cancelled-but-not-yet-expired subscription too.
+                // Only Cancel-again is hidden (already cancelled).
+                const addRow = s.members.length < s.quantity
+                    ? "<div class=\"modal-add-row\">" +
+                      "<input type=\"email\" placeholder=\"teammate@email.com\" data-add-input=\"" + s.subscription_id + "\" />" +
+                      "<button type=\"button\" class=\"btn btn-ghost\" data-add-sub=\"" + s.subscription_id + "\">Add</button>" +
+                      "</div>"
+                    : "<div class=\"modal-status\">All seats assigned.</div>";
+                const cancelRow = cancelled ? "" : "<div class=\"account-detail-footer\">" +
+                    "<button type=\"button\" class=\"modal-link-btn\" data-cancel-sub=\"" + s.subscription_id +
+                    "\">Cancel this subscription</button></div>";
+                const footer = addRow + cancelRow;
+                const memberList = memberRows || "<p class=\"modal-status\">No teammates added yet.</p>";
+                const count = "<div class=\"modal-member-count\">" + s.members.length + " of " + s.quantity + " seats assigned</div>";
+                return "<div class=\"account-detail-head\">" +
+                    "<h4>" + subscriptionLabel(s) + "</h4>" +
+                    "<span>" + s.quantity + " seat(s) - " + subscriptionStatusText(s) + "</span>" +
+                    "</div>" + count + memberList + footer;
+            }
+
+            // Wires cancel/add/remove clicks for the account page's detail pane.
+            function wireSubscriptionActions(container, statusEl, onRefresh) {
+                container.addEventListener("click", async function (e) {
+                    const target = e.target;
+                    if (target.dataset.cancelSub) {
+                        statusEl.textContent = "Cancelling…";
+                        try {
+                            await cancelSubscriptionFn({ subscription_id: target.dataset.cancelSub });
+                            statusEl.textContent = "Cancelled - access continues until the period ends.";
+                            onRefresh();
+                        } catch (err) {
+                            statusEl.textContent = "Could not cancel: " + err.message;
+                        }
+                    } else if (target.dataset.addSub) {
+                        const subId = target.dataset.addSub;
+                        const input = container.querySelector("[data-add-input=\"" + subId + "\"]");
+                        const email = input ? input.value.trim() : "";
+                        if (!email) return;
+                        statusEl.textContent = "Adding…";
+                        try {
+                            await addMemberFn({ subscription_id: subId, email: email });
+                            statusEl.textContent = "Added " + email + ".";
+                            onRefresh();
+                        } catch (err) {
+                            statusEl.textContent = "Could not add: " + err.message;
+                        }
+                    } else if (target.dataset.removeSub) {
+                        statusEl.textContent = "Removing…";
+                        try {
+                            await removeMemberFn({
+                                subscription_id: target.dataset.removeSub,
+                                email: target.dataset.removeEmail,
+                            });
+                            statusEl.textContent = "Removed.";
+                            onRefresh();
+                        } catch (err) {
+                            statusEl.textContent = "Could not remove: " + err.message;
+                        }
+                    }
+                });
+            }
+
+            // --- Site-wide nav auth (Sign in / profile) ---
+            const navSigninBtn = document.getElementById("nav-signin-btn");
+            const navSigninMenu = document.getElementById("nav-signin-menu");
+            const navGoogleBtn = document.getElementById("nav-google-btn");
+            const navGithubBtn = document.getElementById("nav-github-btn");
+            const navProfileBtn = document.getElementById("nav-profile-btn");
+            const navProfileMenu = document.getElementById("nav-profile-menu");
+            const navAvatar = document.getElementById("nav-avatar");
+            const navName = document.getElementById("nav-name");
+            const navMenuAccount = document.getElementById("nav-menu-account");
+            const navSignoutBtn = document.getElementById("nav-signout-btn");
+
+            navSigninBtn.onclick = function () {
+                navSigninMenu.hidden = !navSigninMenu.hidden;
+            };
+            navGoogleBtn.onclick = async function () {
+                navSigninMenu.hidden = true;
+                try {
+                    await signInWithProvider(new GoogleAuthProvider());
+                } catch (err) {
+                    console.error("Sign-in failed:", err);
+                }
+            };
+            navGithubBtn.onclick = async function () {
+                navSigninMenu.hidden = true;
+                try {
+                    await signInWithProvider(new GithubAuthProvider());
+                } catch (err) {
+                    console.error("Sign-in failed:", err);
+                }
+            };
+            navProfileBtn.onclick = function () {
+                navProfileMenu.hidden = !navProfileMenu.hidden;
+            };
+            navSignoutBtn.onclick = async function () {
+                navProfileMenu.hidden = true;
+                await signOut(auth);
+                location.hash = "top";
+            };
+            document.addEventListener("click", function (e) {
+                if (!navSigninBtn.contains(e.target) && !navSigninMenu.contains(e.target)) {
+                    navSigninMenu.hidden = true;
+                }
+                if (!navProfileBtn.contains(e.target) && !navProfileMenu.contains(e.target)) {
+                    navProfileMenu.hidden = true;
+                }
+            });
+
+            onAuthStateChanged(auth, function (user) {
+                if (user) {
+                    navSigninBtn.style.display = "none";
+                    navSigninMenu.hidden = true;
+                    navProfileBtn.style.display = "flex";
+                    navName.textContent = user.displayName || user.email || "Account";
+                    navAvatar.textContent = (user.displayName || user.email || "?").charAt(0);
+                } else {
+                    navSigninBtn.style.display = "inline-flex";
+                    navProfileBtn.style.display = "none";
+                    navProfileMenu.hidden = true;
+                }
+                authReady = true;
+                if (location.hash === "#account") refreshAccount();
+            });
+
+            // --- Account page (owned subscriptions, all tiers + membership) ---
+            // #account is a routed page (see the routing script below), not a
+            // modal - refreshed on hashchange rather than an open/close pair.
+            // Two-pane layout: account-list is the clickable menu of owned
+            // subscriptions, account-detail shows the SELECTED one's members
+            // + actions (Cancel pinned bottom-right via .account-detail-footer).
+            const accountList = document.getElementById("account-list");
+            const accountDetail = document.getElementById("account-detail");
+            const accountMembership = document.getElementById("account-membership");
+            const accountStatus = document.getElementById("account-status");
+
+            let mySubscriptions = [];
+            let selectedSubId = null;
+            // Firebase Auth restores its session asynchronously - auth.
+            // currentUser reads null for a moment even for an already
+            // signed-in user right after page load. Without this flag,
+            // refreshAccount would flash "Sign in to see your account"
+            // before onAuthStateChanged's first callback corrects it.
+            let authReady = false;
+
+            function renderAccountPanes() {
+                if (!mySubscriptions.length) {
+                    accountList.innerHTML = "";
+                    accountDetail.innerHTML = "<p class=\"account-empty\">No purchased licenses yet.</p>";
+                    return;
+                }
+                if (!mySubscriptions.some(function (s) { return s.subscription_id === selectedSubId; })) {
+                    selectedSubId = mySubscriptions[0].subscription_id;
+                }
+                accountList.innerHTML = mySubscriptions.map(function (s) {
+                    return accountListItemHtml(s, s.subscription_id === selectedSubId);
+                }).join("");
+                const selected = mySubscriptions.find(function (s) {
+                    return s.subscription_id === selectedSubId;
+                });
+                accountDetail.innerHTML = accountDetailHtml(selected);
+            }
+
+            accountList.addEventListener("click", function (e) {
+                const subId = e.target.closest("[data-select-sub]");
+                if (subId) {
+                    selectedSubId = subId.dataset.selectSub;
+                    renderAccountPanes();
+                }
+            });
+            wireSubscriptionActions(accountDetail, accountStatus, refreshAccount);
+
+            async function refreshAccount() {
+                if (!authReady) {
+                    accountList.innerHTML = "";
+                    accountDetail.innerHTML = "<div class=\"account-loading\"></div>";
+                    accountMembership.innerHTML = "";
+                    return;
+                }
+                if (!auth.currentUser) {
+                    accountList.innerHTML = "";
+                    accountDetail.innerHTML = "<p class=\"account-empty\">Sign in to see your account.</p>";
+                    accountMembership.innerHTML = "";
+                    return;
+                }
+                try {
+                    const { data } = await getMySubscriptions();
+                    const now = new Date();
+                    mySubscriptions = (data.subscriptions || []).filter(function (s) {
+                        // Cancelled stays visible (access continues, still
+                        // manageable) until it actually lapses at expiry -
+                        // matches cancelSubscription's cancel_at_cycle_end
+                        // design, never disappears the moment you cancel.
+                        if (s.status !== "cancelled") return true;
+                        return s.expiry && new Date(s.expiry) > now;
+                    });
+                    renderAccountPanes();
+                } catch (err) {
+                    mySubscriptions = [];
+                    accountList.innerHTML = "";
+                    accountDetail.innerHTML = "";
+                }
+                try {
+                    const { data } = await getMyMembership();
+                    if (data.membership) {
+                        const m = data.membership;
+                        const label = (PLANS[m.tier] ? PLANS[m.tier].label : m.tier);
+                        accountMembership.innerHTML = "<div class=\"modal-sub-row\">" +
+                            "<div class=\"sub-head\"><span>Member of " + label + " (" + m.status + ")</span></div>" +
+                            "<button type=\"button\" class=\"btn btn-ghost full\" id=\"account-leave-btn\">Leave subscription</button>" +
+                            "</div>";
+                        document.getElementById("account-leave-btn").onclick = async function () {
+                            accountStatus.textContent = "Leaving…";
+                            try {
+                                await leaveSubscriptionFn();
+                                accountStatus.textContent = "Left the subscription.";
+                                refreshAccount();
+                            } catch (err) {
+                                accountStatus.textContent = "Could not leave: " + err.message;
+                            }
+                        };
+                    } else {
+                        accountMembership.innerHTML = "";
+                    }
+                } catch (err) {
+                    accountMembership.innerHTML = "";
+                }
+            }
+
+            window.addEventListener("hashchange", function () {
+                if (location.hash === "#account") {
+                    accountStatus.textContent = "";
+                    refreshAccount();
+                }
+            });
+            if (location.hash === "#account") refreshAccount();
+
+            navMenuAccount.onclick = function () {
+                navProfileMenu.hidden = true;
+                location.hash = "account";
+            };
+        </script>
+
+        <script>
+            (function () {
+                var PAGE_IDS = ["plans", "docs", "access", "account"];
+                function applyRoute() {
+                    var id = location.hash.slice(1);
+                    var isPage = PAGE_IDS.indexOf(id) !== -1;
+                    document.body.classList.toggle("page-mode", isPage);
+                    PAGE_IDS.forEach(function (pageId) {
+                        var el = document.getElementById(pageId);
+                        if (el) el.classList.toggle("page-hidden", isPage && pageId !== id);
+                    });
+                    var target = id ? document.getElementById(id) : null;
+                    requestAnimationFrame(function () {
+                        if (target) target.scrollIntoView({ behavior: isPage ? "instant" : "smooth" });
+                        else window.scrollTo(0, 0);
+                    });
+                }
+                window.addEventListener("hashchange", applyRoute);
+                window.addEventListener("DOMContentLoaded", applyRoute);
+            })();
+
+            (function () {
+                var toggle = document.getElementById("nav-mobile-toggle");
+                var links = document.querySelector(".nav-links");
+                if (!toggle || !links) return;
+                function close() {
+                    links.classList.remove("mobile-open");
+                    toggle.setAttribute("aria-expanded", "false");
+                }
+                toggle.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                    var open = links.classList.toggle("mobile-open");
+                    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                });
+                links.addEventListener("click", function (e) {
+                    if (e.target.tagName === "A") close();
+                });
+                document.addEventListener("click", function (e) {
+                    if (!links.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) close();
+                });
+                window.addEventListener("hashchange", close);
+            })();
+
+            (function () {
+                var form = document.getElementById("access-form");
+                var fieldsEl = document.getElementById("access-fields");
+                var reviewEl = document.getElementById("access-review");
+                var reviewBtn = document.getElementById("access-review-btn");
+                var editBtn = document.getElementById("access-edit-btn");
+                var summaryEl = document.getElementById("access-summary");
+                if (!form || !reviewBtn) return;
+
+                function esc(s) {
+                    var d = document.createElement("div");
+                    d.textContent = s || "—";
+                    return d.innerHTML;
+                }
+                function row(label, value) {
+                    return "<div class=\"review-row\"><span>" + esc(label) + "</span><b>" + esc(value) + "</b></div>";
+                }
+
+                reviewBtn.addEventListener("click", function () {
+                    if (!form.reportValidity()) return;
+                    var data = new FormData(form);
+                    summaryEl.innerHTML =
+                        row("Name", data.get("name")) +
+                        row("Work email", data.get("email")) +
+                        row("Company", data.get("company")) +
+                        row("Licenses needed", data.get("seats")) +
+                        row("Interested in", data.get("plan")) +
+                        row("Message", data.get("message"));
+                    fieldsEl.hidden = true;
+                    reviewEl.hidden = false;
+                });
+                editBtn.addEventListener("click", function () {
+                    reviewEl.hidden = true;
+                    fieldsEl.hidden = false;
+                });
+            })();
+        </script>
     </body>
 </html>
